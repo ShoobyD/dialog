@@ -1,0 +1,22 @@
+
+/** dialog **/
+dialog {
+	position        : fixed;
+	margin          : auto;
+	padding         : 32px;
+	top             : 50%;
+	transform       : translateY( -50% );
+	box-shadow      : 0px 10px 13px -7px Black;
+	z-index         : 999999;
+}
+dialog .closeBtn {
+	display         : block;
+	margin          : 24px auto 0;
+	padding         : 7px;
+}
+dialog .content {
+	font-size       : 24px;
+	font-family     : consolas, monospace;
+	text-align      : justify;
+}
+
