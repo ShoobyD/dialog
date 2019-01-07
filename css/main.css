@@ -35,3 +35,8 @@ header h1 {
 	line-height     : var( --header_height );
 }
 
+ul {
+	text-align: left;
+	margin: 20px;
+}
+
