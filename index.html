@@ -8,9 +8,6 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 
 		<link rel="stylesheet" href="css/main.css" />
-		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,400" />
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
 		<link rel="stylesheet" href="dialog.css" />
 		<script src="dialog.js"></script>
 
@@ -26,14 +23,24 @@
 			<p>
 				A simple dialog box.
 			</p>
+			<div>
+				<button id="openDialog">Open Dialog</button>
+			</div>
 		</div>
 		<script>
 
-			const dialog = new Dialog();
-			dialog.open( [
-				`<h2>Howdy Doody!</h2>`,
-				`IMMA DIALOGUEUE!`,
-			] );
+			const dialog        = new Dialog();
+			const openDialogBtn = document.querySelector( '#openDialog' );
+			openDialogBtn.addEventListener( 'click', openDialog );
+
+			openDialog();
+
+			function openDialog() {
+				dialog.showModal( [
+					`<h2>Howdy Doody!</h2>`,
+					`<div>IMMA DIALOGUEUE!</div>`,
+				] );
+			}
 
 		</script>
 

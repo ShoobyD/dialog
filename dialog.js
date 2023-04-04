@@ -1,122 +1,63 @@
-
 'use strict';
-/*==*==*==*==*==*==*==*==*
- *     General Utils     *
- *==*==*==*==*==*==*==*==*/
-
-/*
- * KeyCodes constants
- */
-const KEYCODES    = {
-
-	'BACKSPACE' : 8,
-	'BKSP'      : 8,
-	'DELETE'    : 46,
-	'ESC'       : 27,
-	'ESCAPE'    : 27,
-	'SPACE'     : 32,
-
-	'TAB'       : 9,
-	'ENTER'     : 13,
-
-	'SHIFT'     : 16,
-	'CTRL'      : 17,
-	'CONTROL'   : 17,
-	'ALT'       : 18,
-
-	'C'         : 67,
-	'COPY'      : 67,
-	'V'         : 86,
-	'PASTE'     : 86,
-
-	'PAGEUP'    : 33,
-	'PAGEDOWN'  : 34,
-	'END'       : 35,
-	'HOME'      : 36,
-
-	'F1'        : 112,
-	'F12'       : 123,
-
-	'LEFT'      : 37,
-	'UP'        : 38,
-	'RIGHT'     : 39,
-	'DOWN'      : 40,
-
-	'NUM0'      : 48,
-	'NUM9'      : 57,
-	'NUMPAD0'   : 96,
-	'NUMPAD9'   : 105,
-
-};
-
-
-
-/*
- * jQuery extend
- */
-( function( $ ) {
-
-	$.fn.extend( {
-		'isOrHas' : function( elm ) {
-			elm = elm || document.activeElement;
-			return this.is( elm ) || this.has( elm ).length;
-		},
-	} );
-
-} )( jQuery );
-
-
 
 /*
  * Dialog
  */
-function Dialog( msg ) {
+class Dialog {
+	constructor( text ) {
+		this.dialog = document.createElement( 'dialog' );
 
-	const $dialog   = $( '<dialog>' )
-		.appendTo( document.body );
+		this.form        = document.createElement( 'form' );
+		this.form.method = 'dialog';
 
-	const $content  = $( '<div class="content">' )
-		.html( msg )
-		.click( selectText )
-		.appendTo( $dialog );
+		this.content = document.createElement( 'div' );
+		this.content.classList.add( 'content' );
+		this.content.addEventListener( 'click', this.selectText.bind( this ) );
 
-	const $closeBtn = $( '<button>' )
-		.addClass( 'closeBtn' )
-		.html( 'Close' )
-		.click( close )
-		.appendTo( $dialog );
+		this.cancelBtn       = document.createElement( 'button' );
+		this.cancelBtn.value = 'cancel';
+		this.cancelBtn.append( '×' );
 
-	$( document )
-		.click( function( e ) {
-			if ( !$dialog.isOrHas( e.target ) ) close();
-		} )
-		.keydown( function( e ) {
-			if ( e.which === KEYCODES.ESC ) close();
+		this.form.append( this.cancelBtn, this.content );
+		this.dialog.append( this.form );
+		document.body.append( this.dialog );
+
+		this.dialog.addEventListener( 'click', event => {
+			if ( event.target === this.dialog ) {
+				this.close();
+			}
 		} );
 
-	function selectText() {
-
-		getSelection().selectAllChildren( $content[ 0 ] );
-
+		if ( text ) {
+			this.showModal( text );
+		}
 	}
 
-	function open( msg ) {
-
-		if ( msg ) $content.html( msg );
-		$dialog.prop( 'open', true );
-
+	show( msg ) {
+		this.setText( text );
+		this.dialog.show();
 	}
 
-	function close() {
-
-		$dialog.prop( 'open', false );
-
+	showModal( text ) {
+		this.setText( text );
+		this.dialog.showModal();
 	}
 
-	return {
-		open,
-		close,
-	};
+	close() {
+		this.dialog.close();
+	}
 
+	setText( text ) {
+		if ( text ) {
+			if ( Array.isArray( text ) ) {
+				text = text.join( '\n' );
+			}
+			this.content.innerHTML = text;
+		}
+	}
+
+	selectText() {
+		getSelection().selectAllChildren( this.content );
+	}
 }
 

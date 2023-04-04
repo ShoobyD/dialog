@@ -1,4 +1,4 @@
-
+/** general **/
 :root {
 	--black_border  : 1px solid Black;
 	--header_height : 124px;
@@ -38,5 +38,9 @@ header h1 {
 ul {
 	text-align: left;
 	margin: 20px;
+}
+
+#openDialog {
+	padding: 12px 24px;
 }
 
