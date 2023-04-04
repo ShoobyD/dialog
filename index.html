@@ -35,74 +35,11 @@
 
 			openDialog();
 
-			// function openDialog() {
-			// 	dialog.showModal( [
-			// 		`<h2>Howdy Doody!</h2>`,
-			// 		`<div>IMMA DIALOGUEUE!</div>`,
-			// 	] );
-			// }
-
 			function openDialog() {
-				dialog.showModal( `
-					<pre>
-	moveHandler( event ) {
-		if ( !this.pixelMap )
-			return;
-
-		const { offsetX, offsetY } = event;
-		const spriteOffset         = this.searchSprite( offsetX, offsetY );
-		if ( !spriteOffset )
-			return this.clearPreview();
-
-		const imageData       = this.canvas.getImageData( spriteOffset.offsetX, spriteOffset.offsetY, this.spriteData.size, this.spriteData.size );
-		const cleanSpriteData = cleanSprite( imageData, this.spriteData.tpColors );
-		const croppedSprite   = cropSprite( cleanSpriteData );
-		this.previewData      = croppedSprite;
-		this.preview.drawSprite( { imageData: cleanSpriteData } );
-		this.previewCropped.drawSprite( { imageData: croppedSprite } );
-	}
-
-	clickHandler( event ) {
-		if ( !this.previewData )
-			return;
-
-		const spriteName           = prompt( 'Sprite Name', 'daisy-' );
-		this.sprites[ spriteName ] = this.previewData.data;
-	}
-
-	exportHandler() {
-		alert( JSON.stringify( this.sprites ) );
-	}
-
-	searchSprite( offsetX, offsetY ) {
-		let foundTr = false, pixel;
-		do {
-			pixel = this.pixelMap[ offsetY ][ offsetX ];
-			if ( this.isTpPixel( pixel ) )
-				foundTr = true;
-		} while ( !this.isBgPixel( pixel ) && offsetX-- );
-		offsetX++;
-
-		if ( !foundTr )
-			return null;
-
-		do {
-			pixel = this.pixelMap[ offsetY ][ offsetX ];
-		} while ( !this.isBgPixel( pixel ) && offsetY-- );
-		offsetY++;
-
-		return { offsetX, offsetY };
-	}
-
-	isBgPixel( pixel ) {
-		return isPixelInGroup( pixel, this.spriteData.bgColors );
-	}
-
-	isTpPixel( pixel ) {
-		return isPixelInGroup( pixel, this.spriteData.tpColors );
-	}
-					</pre>
-				` );
+				dialog.showModal( [
+					`<h2>Howdy Doody!</h2>`,
+					`<div>IMMA DIALOGUEUE!</div>`,
+				] );
 			}
 
 		</script>
