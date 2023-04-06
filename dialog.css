@@ -27,6 +27,7 @@ dialog button[value="cancel"] {
     right:      var(--position);
     width:      var(--size);
     height:     var(--size);
+    font-size:  var(--size);
     background: none;
     border:     none;
     outline:    none;
