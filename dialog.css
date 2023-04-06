@@ -19,11 +19,14 @@ dialog > form {
 }
 
 dialog button[value="cancel"] {
+    --size:     24px;
+    --position: 16px;
+
     position:   absolute;
-    top:        16px;
-    right:      16px;
-    width:      16px;
-    height:     16px;
+    top:        var(--position);
+    right:      var(--position);
+    width:      var(--size);
+    height:     var(--size);
     background: none;
     border:     none;
     outline:    none;
