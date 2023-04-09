@@ -12,7 +12,6 @@ class Dialog {
 
 		this.content = document.createElement( 'div' );
 		this.content.classList.add( 'content' );
-		this.content.addEventListener( 'click', this.selectText.bind( this ) );
 
 		const cancelBtn = document.createElement( 'button' );
 		cancelBtn.value = 'cancel';
@@ -28,6 +27,8 @@ class Dialog {
 		this.dialog.addEventListener( 'click', event => {
 			if ( event.target === this.dialog ) {
 				this.cancel();
+			} else {
+				this.selectText();
 			}
 		} );
 
