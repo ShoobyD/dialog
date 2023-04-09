@@ -17,6 +17,9 @@ class Dialog {
 		this.cancelBtn       = document.createElement( 'button' );
 		this.cancelBtn.value = 'cancel';
 		this.cancelBtn.append( '×' );
+		this.cancelBtn.addEventListener( 'click', event => {
+			this.cancel();
+		} );
 
 		this.form.append( this.cancelBtn, this.content );
 		this.dialog.append( this.form );
@@ -24,7 +27,7 @@ class Dialog {
 
 		this.dialog.addEventListener( 'click', event => {
 			if ( event.target === this.dialog ) {
-				this.close();
+				this.cancel();
 			}
 		} );
 
@@ -45,6 +48,12 @@ class Dialog {
 
 	close() {
 		this.dialog.close();
+	}
+
+	cancel() {
+		const cancelEvent = new Event( 'cancel' );
+		this.dialog.dispatchEvent( cancelEvent );
+		this.close();
 	}
 
 	setText( text ) {
