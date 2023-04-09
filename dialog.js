@@ -5,7 +5,8 @@
  */
 class Dialog {
 	constructor( text ) {
-		this.dialog = document.createElement( 'dialog' );
+
+		const dialog = document.createElement( 'dialog' );
 
 		const form  = document.createElement( 'form' );
 		form.method = 'dialog';
@@ -21,39 +22,39 @@ class Dialog {
 		} );
 
 		form.append( cancelBtn, this.content );
-		this.dialog.append( form );
-		document.body.append( this.dialog );
+		dialog.append( form );
+		document.body.append( dialog );
 
-		this.dialog.addEventListener( 'click', event => {
-			if ( event.target === this.dialog ) {
-				this.cancel();
+		dialog.addEventListener( 'click', event => {
+			if ( event.target === dialog ) {
+				dialog.cancel();
 			} else {
-				this.selectText();
+				dialog.selectText();
 			}
 		} );
 
 		if ( text ) {
 			this.showModal( text );
 		}
+
+		Object.setPrototypeOf( Dialog.prototype, HTMLDialogElement.prototype );
+		Object.setPrototypeOf( dialog, this );
+		return dialog;
 	}
 
 	show( msg ) {
 		this.setText( text );
-		this.dialog.show();
+		super.show();
 	}
 
 	showModal( text ) {
 		this.setText( text );
-		this.dialog.showModal();
-	}
-
-	close() {
-		this.dialog.close();
+		super.showModal();
 	}
 
 	cancel() {
 		const cancelEvent = new Event( 'cancel' );
-		this.dialog.dispatchEvent( cancelEvent );
+		this.dispatchEvent( cancelEvent );
 		this.close();
 	}
 
