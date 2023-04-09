@@ -7,22 +7,22 @@ class Dialog {
 	constructor( text ) {
 		this.dialog = document.createElement( 'dialog' );
 
-		this.form        = document.createElement( 'form' );
-		this.form.method = 'dialog';
+		const form  = document.createElement( 'form' );
+		form.method = 'dialog';
 
 		this.content = document.createElement( 'div' );
 		this.content.classList.add( 'content' );
 		this.content.addEventListener( 'click', this.selectText.bind( this ) );
 
-		this.cancelBtn       = document.createElement( 'button' );
-		this.cancelBtn.value = 'cancel';
-		this.cancelBtn.append( '×' );
-		this.cancelBtn.addEventListener( 'click', event => {
+		const cancelBtn = document.createElement( 'button' );
+		cancelBtn.value = 'cancel';
+		cancelBtn.append( '×' );
+		cancelBtn.addEventListener( 'click', event => {
 			this.cancel();
 		} );
 
-		this.form.append( this.cancelBtn, this.content );
-		this.dialog.append( this.form );
+		form.append( cancelBtn, this.content );
+		this.dialog.append( form );
 		document.body.append( this.dialog );
 
 		this.dialog.addEventListener( 'click', event => {
