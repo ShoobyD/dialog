@@ -33,14 +33,13 @@ class Dialog {
 			}
 		} );
 
-		setTimeout( () => {
-			if ( text ) {
-				dialog.showModal( text );
-			}
-		} );
-
 		Object.setPrototypeOf( Dialog.prototype, HTMLDialogElement.prototype );
 		Object.setPrototypeOf( dialog, this );
+
+		if ( text ) {
+			dialog.showModal( text );
+		}
+
 		return dialog;
 	}
 
